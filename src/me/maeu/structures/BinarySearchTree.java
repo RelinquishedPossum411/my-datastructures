@@ -67,7 +67,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
         bst.insert(72);
         bst.insert(63);
 
-        System.out.println(bst.inOrder());
+        System.out.println(bst.traverse(TraversalMethod.PRE_ORDER));
         System.out.println(bst.leafCount());
         System.out.println(bst.inTree(100));
 

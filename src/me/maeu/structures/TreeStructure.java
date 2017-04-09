@@ -3,10 +3,10 @@ package me.maeu.structures;
 /**
  * @author Benjamin Huang
  */
-public abstract class TreeStructure<T> implements Tree {
+public abstract class TreeStructure<T> implements Tree<T> {
     protected Node<T> root;
 
-    protected abstract class Node<E> {
+    protected static abstract class Node<E> {
         protected Node<E> parentNode;
 
         protected Node(Node<E> parent) {
