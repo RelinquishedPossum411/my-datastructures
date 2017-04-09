@@ -40,8 +40,6 @@ public abstract class BinaryTree<T> extends TreeStructure<T> {
         }
     }
 
-    public abstract T insert(T data);
-
     public abstract T delete(T data);
 
     public abstract boolean inTree(T data);

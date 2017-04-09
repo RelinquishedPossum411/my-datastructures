@@ -1,3 +1,4 @@
+package me.maeu.structures.nonrelated;
 
 public class Person implements Comparable<Person> {
     private final String firstName;
@@ -19,5 +20,10 @@ public class Person implements Comparable<Person> {
             return -1;
 
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        return this.firstName + " " + this.lastName;
     }
 }

@@ -1,28 +1,29 @@
 package me.maeu.structures;
 
 public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
-    public T insert(T data) {
+    @Override
+    public T add(T data) {
         if (this.root == null) {
             this.root = new BinaryTreeNode<>(data, null, null, null);
             return data;
         }
 
-        this.insert(data, this.root);
+        this.add(data, this.root);
         return data;
     }
 
-    private void insert(T data, BinaryTreeNode<T> start) {
+    private void add(T data, BinaryTreeNode<T> start) {
         if (start == null)
             throw new NullNodeException("Null node.");
 
         if (data.compareTo(start.getData()) < 0) {
             if (start.leftChild != null)
-                insert(data, start.leftChild);
+                add(data, start.leftChild);
             else
                 start.leftChild = new BinaryTreeNode<>(data, start, null, null);
         } else if (data.compareTo(start.getData()) >= 0) {
             if (start.rightChild != null)
-                insert(data, start.rightChild);
+                add(data, start.rightChild);
             else
                 start.rightChild = new BinaryTreeNode<>(data, start, null, null);
         }
@@ -56,16 +57,16 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
     // Temporary main method.
     public static void main(String[] args) {
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
-        bst.insert(50);
-        bst.insert(90);
-        bst.insert(25);
-        bst.insert(2);
-        bst.insert(26);
-        bst.insert(29);
-        bst.insert(30);
-        bst.insert(100);
-        bst.insert(72);
-        bst.insert(63);
+        bst.add(50);
+        bst.add(90);
+        bst.add(25);
+        bst.add(2);
+        bst.add(26);
+        bst.add(29);
+        bst.add(30);
+        bst.add(100);
+        bst.add(72);
+        bst.add(63);
 
         System.out.println(bst.traverse(TraversalMethod.PRE_ORDER));
         System.out.println(bst.leafCount());
