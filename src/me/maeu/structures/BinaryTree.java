@@ -36,11 +36,31 @@ public abstract class BinaryTree<T> extends TreeStructure<T> {
         }
     }
 
-    public abstract T insert(T data);
+    //public abstract T insert(T data);
+
+    public abstract T delete(T data);
+
+    public abstract boolean inTree(T data);
 
     @Override
     public int leafCount() {
-        return 0;
+        return this.leafCount(this.root);
+    }
+
+    private int leafCount(BinaryTreeNode<T> start) {
+        if (start == null)
+            throw new NullNodeException();
+
+        if (start.isLeaf())
+            return 1;
+
+        if (start.leftChild == null)
+            return leafCount(start.rightChild);
+
+        if (start.rightChild == null)
+            return leafCount(start.leftChild);
+
+        return leafCount(start.leftChild) + leafCount(start.rightChild);
     }
 
     public List<T> inOrder() {
