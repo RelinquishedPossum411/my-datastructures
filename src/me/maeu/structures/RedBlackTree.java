@@ -14,4 +14,10 @@ public final class RedBlackTree<T extends Comparable<T>> extends BinarySearchTre
             this.color = color;
         }
     }
+
+    private void doSomething() {
+        RedBlackTreeNode<T> rbn = new RedBlackTreeNode<T>(null, RedBlackTreeNode.Color.BLACK, null, null, null);
+        rbn.isLeaf();
+
+    }
 }

@@ -14,6 +14,7 @@ public abstract class BinaryTree<T> extends TreeStructure<T> {
     }
 
     protected static class BinaryTreeNode<E> extends Node<E> {
+        protected BinaryTreeNode<E> parentNode;
         protected BinaryTreeNode<E> leftChild;
         protected BinaryTreeNode<E> rightChild;
         private E data;
@@ -132,5 +133,82 @@ public abstract class BinaryTree<T> extends TreeStructure<T> {
         this.root.rightChild = oldRoot;
         this.root.rightChild.parentNode = this.root;
         oldRoot.leftChild = leftChildRightChild;
+    }
+
+    public T getMaximum() {
+        return this.getMaximum(this.root).data;
+    }
+
+    public T getMinimum() {
+        return this.getMinimum(this.root).data;
+    }
+
+    private boolean hasUncle(BinaryTreeNode<T> node) {
+        if (node.parentNode == null)
+            return false;
+
+        if (node.parentNode.parentNode == null)
+            return false;
+
+        return  (node.parentNode == node.parentNode.parentNode.leftChild &&
+                node.parentNode.parentNode.rightChild != null) ||
+                (node.parentNode == node.parentNode.parentNode.rightChild &&
+                        node.parentNode.parentNode.leftChild != null);
+    }
+
+    private BinaryTreeNode<T> getMinimum(BinaryTreeNode<T> start) {
+        if (start == null)
+            throw new NullNodeException();
+
+        if (start.leftChild != null)
+            return getMinimum(start.leftChild);
+
+        return start;
+    }
+
+    private BinaryTreeNode<T> getMaximum(BinaryTreeNode<T> start) {
+        if (start == null)
+            throw new NullNodeException();
+
+        if (start.rightChild != null)
+            return getMaximum(start.rightChild);
+
+        return start;
+    }
+
+    private BinaryTreeNode<T> getSuccessor(BinaryTreeNode<T> node) {
+        if (node == null)
+            throw new NullNodeException();
+
+        if (node.rightChild != null)
+            return getMinimum(node.rightChild);
+
+        BinaryTreeNode<T> parent = node.parentNode;
+        BinaryTreeNode<T> current = node;
+
+        while (parent != null && parent.leftChild == current) {
+            current = parent;
+            parent = parent.parentNode;
+        }
+
+        return parent;
+    }
+
+    private BinaryTreeNode<T> getPredecessor(BinaryTreeNode<T> node) {
+        if (node == null)
+            throw new NullNodeException();
+
+        if (node.leftChild != null)
+            return this.getMinimum(node.leftChild);
+
+        BinaryTreeNode<T> current = node;
+        BinaryTreeNode<T> parent = node.parentNode;
+
+        while (parent != null && parent.rightChild == current) {
+            current = parent;
+            parent = parent.parentNode;
+        }
+
+        return parent;
     }
 }

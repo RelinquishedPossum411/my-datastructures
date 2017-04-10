@@ -12,6 +12,7 @@ public class Run {
         bst.add(3);
         bst.add(15);
 
+        System.out.println(bst.leafCount());
 
         ArrayHeap<Integer> ah = new ArrayHeap<>();
         ah.add(80);
