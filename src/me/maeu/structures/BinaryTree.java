@@ -1,5 +1,6 @@
 package me.maeu.structures;
 
+import java.util.Collection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +94,7 @@ public abstract class BinaryTree<T> extends TreeStructure<T> {
     }
 
     /**
-     * Rotates the <code>BinaryTree</code> left about the root node. Does nothing if the root node has no right child.
+     * Rotates the {@code BinaryTree} left about the root node. Does nothing if the root node has no right child.
      */
     public void rotateLeft() {
         if (this.root.rightChild == null)
@@ -114,7 +115,7 @@ public abstract class BinaryTree<T> extends TreeStructure<T> {
     }
 
     /**
-     * Rotates the <code>BinaryTree</code> right about the root node. Does nothing if the root node has no left child.
+     * Rotates the {@code BinaryTree} right about the root node. Does nothing if the root node has no left child.
      */
     public void rotateRight() {
         if (this.root.leftChild == null)

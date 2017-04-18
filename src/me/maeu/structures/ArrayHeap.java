@@ -16,32 +16,32 @@ public class ArrayHeap<T extends Comparable<T>> extends ArrayStructure<T> {
     }
 
     public int getCapacity() {
-        return this.CAPACITY;
+        return CAPACITY;
     }
 
     public int size() {
-        return this.size;
+        return size;
     }
 
     @Override
     public T add(T data) {
-        if (this.size >= this.CAPACITY)
+        if (size >= CAPACITY)
             throw new RuntimeException();
 
         array[this.size++] = data;
-        this.fixLastInserted();
+        fixLastInserted();
 
         return data;
     }
 
     @SuppressWarnings("unchecked")
     private void fixLastInserted() {
-        if (this.size <= 1)
+        if (size <= 1)
             return;
 
-        int current = this.size - 1;
+        int current = size - 1;
 
-        while (((T) this.array[current]).compareTo((T) this.array[(current - 1) / 2]) > 0) {
+        while (((T) array[current]).compareTo((T) array[(current - 1) / 2]) > 0) {
             swapWithParent(current);
             current = (current - 1) / 2;
         }
