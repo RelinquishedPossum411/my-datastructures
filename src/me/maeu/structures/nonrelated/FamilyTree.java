@@ -9,6 +9,11 @@ public class FamilyTree<Person> extends TreeStructure<Person> {
     }
 
     @Override
+    public int size() {
+        return 0;
+    }
+
+    @Override
     public Person add(Person data) {
         return null;
     }
