@@ -15,6 +15,13 @@ public final class RedBlackTree<T extends Comparable<T>> extends BinarySearchTre
         }
     }
 
+    @Override
+    public T add(T data) {
+        super.add(data);
+        // TODO
+        return null;
+    }
+
     private void doSomething() {
         RedBlackTreeNode<T> rbn = new RedBlackTreeNode<T>(null, RedBlackTreeNode.Color.BLACK, null, null, null);
         rbn.isLeaf();

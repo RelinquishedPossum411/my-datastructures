@@ -41,8 +41,18 @@ public abstract class BinaryTree<T> extends TreeStructure<T> {
         }
     }
 
+    /**
+     * Deletes a specific value from the {@code BinaryTree<T>}.
+     * @param data a value of type {@code T}.
+     * @return the deleted value.
+     */
     public abstract T delete(T data);
 
+    /**
+     * Checks if a value of type {@code T} is in the {@code BinaryTree<T>}.
+     * @param data the value to search for in the {@code BinaryTree<T>}.
+     * @return true if the search encounters the specified value, and false if it has exhausted the tree.
+     */
     public abstract boolean inTree(T data);
 
     @Override
@@ -66,6 +76,11 @@ public abstract class BinaryTree<T> extends TreeStructure<T> {
         return leafCount(start.leftChild) + leafCount(start.rightChild);
     }
 
+    /**
+     * Performs a binary tree traversal. The traversal method/type is the only argument.
+     * @param traversalMethod the type of traversal; pre-order, in-order or post-order.
+     * @return a {@code List<T>} of all the elements of tree.
+     */
     public List<T> traverse(TraversalMethod traversalMethod) {
         List<T> list = new ArrayList<>();
         return this.traverse(list, this.root, traversalMethod);
@@ -94,7 +109,7 @@ public abstract class BinaryTree<T> extends TreeStructure<T> {
     }
 
     /**
-     * Rotates the <code>BinaryTree</code> left about the root node. Does nothing if the root node has no right child.
+     * Rotates the {@code BinaryTree<T>} left about the root node. Does nothing if the root node has no right child.
      */
     public void rotateLeft() {
         if (this.root.rightChild == null)
@@ -115,7 +130,7 @@ public abstract class BinaryTree<T> extends TreeStructure<T> {
     }
 
     /**
-     * Rotates the <code>BinaryTree</code> right about the root node. Does nothing if the root node has no left child.
+     * Rotates the {@code BinaryTree<T>} right about the root node. Does nothing if the root node has no left child.
      */
     public void rotateRight() {
         if (this.root.leftChild == null)
@@ -135,10 +150,18 @@ public abstract class BinaryTree<T> extends TreeStructure<T> {
         oldRoot.leftChild = leftChildRightChild;
     }
 
+    /**
+     * Finds the maximum value in the {@code BinaryTree<T>}.
+     * @return the maximum as generic type {@code T}.
+     */
     public T getMaximum() {
         return this.getMaximum(this.root).data;
     }
 
+    /**
+     * Finds the minimum value in the {@code BinaryTree<T>}.
+     * @return the minimum value as generic type {@code T}.
+     */
     public T getMinimum() {
         return this.getMinimum(this.root).data;
     }

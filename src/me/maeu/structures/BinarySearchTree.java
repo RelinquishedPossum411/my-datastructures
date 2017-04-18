@@ -54,6 +54,11 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
         return data.compareTo(start.getData()) == 0;
     }
 
+    @Override
+    public String toString() {
+        return null;
+    }
+
     // Temporary main method.
     public static void main(String[] args) {
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
