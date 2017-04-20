@@ -1,11 +1,76 @@
 package me.maeu.sorts;
 
 import java.util.Comparator;
+import java.util.Arrays;
 
 /**
  * @author Benjamin Huang
  */
 public class Sorts {
+    public static <E extends Comparable<E>> void quickSort(E[] array) {
+        quickSort(array, 0, array.length - 1);
+    }
+
+    private static <E extends Comparable<E>> void quickSort(E[] array, int i, int j) {
+        if (i < j) {
+            int pivot = lomutoPartition(array, i, j);
+            quickSort(array, i, pivot - 1);
+            quickSort(array, pivot + 1, j);
+        }
+    }
+
+    private static <E extends Comparable<E>> int lomutoPartition(E[] array, int first, int last) {
+        int pivot = last;
+        int low = first - 1;
+
+        for (int i = first; i < last; i++) {
+            if (array[i].compareTo(array[pivot]) <= 0) {
+                low++;
+                swapArrayElements(array, low, i);
+            }
+        }
+
+        swapArrayElements(array, low + 1, last);
+        return low + 1;
+    }
+
+    private static <E extends Comparable<E>> void hoarePartition() {
+
+    }
+
+    public static <E extends Comparable<E>> void mergeSort(E[] array) {
+        mergify(array, 0, array.length - 1);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <E extends Comparable<E>> void mergify(E[] array, int left, int right) {
+        if (left == right)
+            return;
+
+        mergify(array, left, (right + left) / 2);
+        mergify(array, (right + left) / 2 + 1, right);
+
+        int t = 0;
+        int leftCount = left;
+        int rightCount = (left + right) / 2 + 1;
+        Object[] merged = new Object[right - left + 1];
+
+        while (leftCount <= (left + right) / 2 && rightCount <= right) {
+            if (array[leftCount].compareTo(array[rightCount]) < 0)
+                merged[t++] = array[leftCount++];
+            else
+                merged[t++] = array[rightCount++];
+        }
+
+        while (leftCount <= (left + right) / 2)
+            merged[t++] = array[leftCount++];
+
+        while (rightCount <= right)
+            merged[t++] = array[rightCount++];
+
+        System.arraycopy(merged, 0, array, left, merged.length);
+    }
+
     public static <E extends Comparable<E>> void heapSort(E[] array) {
         int end = array.length - 1;
         heapify(array);
