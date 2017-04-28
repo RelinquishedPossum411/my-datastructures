@@ -18,6 +18,10 @@ public abstract class TreeStructure<T> implements Tree<T> {
         public boolean isRoot() {
             return this.parentNode == null;
         }
+
+        public boolean hasParent() {
+            return this.parentNode != null;
+        }
     }
 
     public abstract int leafCount();

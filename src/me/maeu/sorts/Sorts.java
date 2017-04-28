@@ -1,12 +1,12 @@
 package me.maeu.sorts;
 
-import java.util.Comparator;
-import java.util.Arrays;
-
 /**
  * @author Benjamin Huang
  */
-public class Sorts {
+public final class Sorts {
+    private Sorts() {
+    }
+
     public static <E extends Comparable<E>> void quickSort(E[] array) {
         quickSort(array, 0, array.length - 1);
     }
@@ -23,52 +23,22 @@ public class Sorts {
         int pivot = last;
         int low = first - 1;
 
-        for (int i = first; i < last; i++) {
+        for (int i = first; i < last; i++)
             if (array[i].compareTo(array[pivot]) <= 0) {
                 low++;
                 swapArrayElements(array, low, i);
             }
-        }
 
         swapArrayElements(array, low + 1, last);
         return low + 1;
     }
 
     private static <E extends Comparable<E>> void hoarePartition() {
-
+        // TODO
     }
 
-    public static <E extends Comparable<E>> void mergeSort(E[] array) {
-        mergify(array, 0, array.length - 1);
-    }
+    private static <E extends Comparable<E>> void mergeSort(E[] array) {
 
-    @SuppressWarnings("unchecked")
-    private static <E extends Comparable<E>> void mergify(E[] array, int left, int right) {
-        if (left == right)
-            return;
-
-        mergify(array, left, (right + left) / 2);
-        mergify(array, (right + left) / 2 + 1, right);
-
-        int t = 0;
-        int leftCount = left;
-        int rightCount = (left + right) / 2 + 1;
-        Object[] merged = new Object[right - left + 1];
-
-        while (leftCount <= (left + right) / 2 && rightCount <= right) {
-            if (array[leftCount].compareTo(array[rightCount]) < 0)
-                merged[t++] = array[leftCount++];
-            else
-                merged[t++] = array[rightCount++];
-        }
-
-        while (leftCount <= (left + right) / 2)
-            merged[t++] = array[leftCount++];
-
-        while (rightCount <= right)
-            merged[t++] = array[rightCount++];
-
-        System.arraycopy(merged, 0, array, left, merged.length);
     }
 
     public static <E extends Comparable<E>> void heapSort(E[] array) {
@@ -77,7 +47,7 @@ public class Sorts {
 
         while (end >= 0) {
             swapArrayElements(array, 0, end);
-            siftDown(array, 0, --end);
+            reheapify(array, 0, --end);
         }
     }
 
@@ -85,7 +55,7 @@ public class Sorts {
         int lastParent = (array.length - 1) / 2;
 
         while (lastParent >= 0) {
-            siftDown(array, lastParent, array.length - 1);
+            reheapify(array, lastParent, array.length - 1);
             lastParent--;
         }
     }
@@ -99,7 +69,7 @@ public class Sorts {
         array[j] = t;
     }
 
-    private static <E extends Comparable<E>> void siftDown(E[] array, int start, int end) {
+    private static <E extends Comparable<E>> void reheapify(E[] array, int start, int end) {
         int root = start;
 
         while (2 * root + 1 <= end) {
@@ -118,5 +88,36 @@ public class Sorts {
             swapArrayElements(array, root, toSwap);
             root = toSwap;
         }
+    }
+
+    public static int[] countingSort(int[] integers) {
+        if (integers.length <= 0)
+            throw new StructureSizeException();
+
+        int maxRange = integers[0];
+
+        for (int i : integers)
+            if (i > maxRange)
+                maxRange = i;
+
+        return countingSort(integers, maxRange);
+    }
+
+    private static int[] countingSort(int[] integers, int maxRange) {
+        int[] histogram = new int[maxRange + 1];
+        int[] sortedArray = new int[integers.length];
+
+        for (int i = 0; i < integers.length; i++)
+            histogram[integers[i]]++;
+
+        for (int i = 1; i < histogram.length; i++)
+            histogram[i] += histogram[i - 1];
+
+        for (int i = 0; i < integers.length; i++) {
+            histogram[integers[i]]--;
+            sortedArray[histogram[integers[i]]] = integers[i];
+        }
+
+        return sortedArray;
     }
 }

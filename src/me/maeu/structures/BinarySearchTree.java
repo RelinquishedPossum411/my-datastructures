@@ -17,7 +17,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
 
     /**
      * Constructor that initializes a {@code BinarySearchTree} with a comparator.
-     * @param comparator
+     * @param comparator a {@code Comparator} that can be used to sort elements in the {@code BinarySearchTree}.
      */
     public BinarySearchTree(Comparator<T> comparator) {
         this.comparator = comparator;
@@ -42,52 +42,40 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
 
     @Override
     public T add(T data) {
-        if (this.root == null) {
-            this.root = new BinaryTreeNode<>(data, null, null, null);
-            return data;
-        }
+        BinaryTreeNode<T> node = new BinaryTreeNode<>(data, null, null, null);
+        add(node, root);
 
-        if (usingComparator())
-            this.addComparator(data, this.root);
-        else
-            this.add(data, this.root);
-
-        size++;
         return data;
     }
 
-    private void add(T data, BinaryTreeNode<T> start) {
+    protected void add(BinaryTreeNode<T> node, BinaryTreeNode<T> start) {
+        if (root == null) {
+            root = node;
+            return;
+        }
+
         if (start == null)
             throw new NullNodeException("Null node.");
 
-        if (data.compareTo(start.getData()) < 0) {
-            if (start.leftChild != null)
-                add(data, start.leftChild);
-            else
-                start.leftChild = new BinaryTreeNode<>(data, start, null, null);
-        } else if (data.compareTo(start.getData()) >= 0) {
-            if (start.rightChild != null)
-                add(data, start.rightChild);
-            else
-                start.rightChild = new BinaryTreeNode<>(data, start, null, null);
-        }
-    }
+        node.parentNode = start;
 
-    private void addComparator(T data, BinaryTreeNode<T> start) {
-        if (start == null)
-            throw new NullNodeException();
-
-        if (comparator.compare(data, start.getData()) < 0) {
+        if (comparator == null ?
+                node.getData().compareTo(start.getData()) < 0 :
+                comparator.compare(node.getData(), node.getData()) < 0) {
             if (start.leftChild != null)
-                addComparator(data, start.leftChild);
+                add(node, start.leftChild);
             else
-                start.leftChild = new BinaryTreeNode<>(data, start, null, null);
-        } else if (comparator.compare(data, start.getData()) >= 0) {
+                start.leftChild = node;
+        } else if (comparator == null ?
+                node.getData().compareTo(start.getData()) >= 0 :
+                comparator.compare(node.getData(), start.getData()) >= 0) {
             if (start.rightChild != null)
-                addComparator(data, start.rightChild);
+                add(node, start.rightChild);
             else
-                start.rightChild = new BinaryTreeNode<>(data, start, null, null);
+                start.rightChild = node;
         }
+
+        size++;
     }
 
     @Override

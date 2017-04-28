@@ -14,7 +14,7 @@ public class Run {
 
         System.out.println(bst.leafCount());
 
-        ArrayHeap<Integer> ah = new ArrayHeap<>();
+        ArrayTreeHeap<Integer> ah = new ArrayTreeHeap<>();
         ah.add(80);
         ah.add(62);
         ah.add(70);
@@ -26,5 +26,14 @@ public class Run {
         ah.add(89);
 
         ah.inOrder(0);
+
+        ListArray<Integer> ar = new ListArray<>();
+        ar.add(5);
+        ar.add(5);
+        ar.add(5);
+        ar.insert(2, 3);
+        ListArray<Integer> as = ar.sublist(0, 2);
+        System.out.println(ar);
+        System.out.println(as + " " + as.size());
     }
 }

@@ -1,17 +1,17 @@
 package me.maeu.structures;
 
-public class ArrayHeap<T extends Comparable<T>> extends ArrayStructure<T> {
+public class ArrayTreeHeap<T extends Comparable<T>> extends ArrayTreeStructure<T> {
     private final int CAPACITY;
     private int size = 0;
     private transient Object[] heap;
 
-    public ArrayHeap(int maximumHeight) {
+    public ArrayTreeHeap(int maximumHeight) {
         this.CAPACITY = (int) Math.round(Math.pow(2, maximumHeight) - 1);
         System.out.println(this.CAPACITY + " " + maximumHeight);
         this.heap = new Object[this.CAPACITY];
     }
 
-    public ArrayHeap() {
+    public ArrayTreeHeap() {
         this(10);
     }
 
