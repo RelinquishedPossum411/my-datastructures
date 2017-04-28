@@ -9,6 +9,11 @@ public final class ListArray<T> implements ListStructure<T> {
     public ListArray() {
     }
 
+    public ListArray(T[] array) {
+        for (T t : array)
+            add(t);
+    }
+
     @Override
     public int size() {
         return size;
